@@ -1,0 +1,6 @@
+IDIR=./include
+PROJECTNAME=MACD
+CC=clang++
+CFLAGS=-I$(IDIR) -o$(PROJECTNAME) -g
+
+
