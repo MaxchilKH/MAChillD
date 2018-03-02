@@ -1,8 +1,5 @@
-//----------------------------------------------------
-//
-// Dataset
-//
-//
+#pragma once
+
 #include<string>
 #include<fstream>
 #include<vector>
@@ -11,29 +8,33 @@
 
 class Data{
 
-    public static const int INDEXDATA = 1;
-
-    public static std::unique_ptr<Data> make_data(int type);  
-
-    public virtual void setData(std::vector<string>&  line) = 0;
-}
+	public:
+		enum TYPE {
+			INDEXDATA,
+		};
+		static std::unique_ptr<Data> make_data(Data::TYPE type);  
+		virtual void setData(const std::string&  line) = 0;
+};
 
 class IndexData : public Data{
 
-    public String   date;
-    public float    opening;
-    public float    highest;
-    public float    lowest;
-    public float    closing;
+public: 
+	std::string   date;
+    float    opening;
+    float    highest;
+    float    lowest;
+    float    closing;
     
-    void setData(std::string line);
-}
+	void setData(const std::string& init_string);
+};
 
 class Dataset{
 
-    private std::vector<unique_ptr<Data>> data;
-    private std::fstream fhandle;
+private: 
+	std::vector<std::unique_ptr<Data>> data;
+    std::fstream fhandle;
 
-    public int loadCSV(std::string filename, int DATATYPE);
-    public const std::vector<Data>& getData();
-}
+public: 
+	int loadCSV(const std::string& filename, Data::TYPE DATATYPE);
+    const std::vector<std::unique_ptr<Data>>& getData();
+};
